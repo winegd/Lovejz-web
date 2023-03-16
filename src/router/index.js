@@ -6,11 +6,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
+
 export const constantRoutes = [
   {
     path: '/login',
@@ -18,11 +14,6 @@ export const constantRoutes = [
     hidden: true
   },
 
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
 
   {
     path: '/',
@@ -49,7 +40,7 @@ export const asyncRoutes = [
     children: [{
       path: 'index',
       name: 'class',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/class/index'),
       meta: { title: '班级管理', icon: 'component', roles: ['2'] }
     }]
 
@@ -60,7 +51,7 @@ export const asyncRoutes = [
     component: Layout,
     // redirect: '/class',
     children: [{
-      path: 'index',
+      path: 'questions',
       name: 'questions',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '题目管理', icon: 'tab', roles: ['1'] }
@@ -89,7 +80,11 @@ export const asyncRoutes = [
 
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 ]
 const createRouter = () => new Router({
   // mode: 'history', // require service support
