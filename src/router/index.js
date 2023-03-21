@@ -67,7 +67,7 @@ export const asyncRoutes = [
       {
         path: 'tea',
         name: 'Tea',
-        component: () => import('@/views/dashboard/index'),
+        component: () => import('@/views/teacher/index'),
         meta: { title: '教师管理', roles: ['2'] },
 
       },
