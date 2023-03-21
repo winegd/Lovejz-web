@@ -11,7 +11,7 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input ref="username" v-model="loginForm.username" placeholder="用户名" name="username" type="text" tabindex="1"
+        <el-input ref="username" v-model="loginForm.username" placeholder="用户名/手机号/工号" name="username" type="text" tabindex="1"
           auto-complete="on" />
       </el-form-item>
 
@@ -55,7 +55,7 @@
       }
       return {
         loginForm: {
-          username: 'admin',
+          username: '123',
           password: ''
         },
         loginRules: {
