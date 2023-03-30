@@ -66,27 +66,27 @@
     </el-table>
 
     <el-dialog title="教师设置" :modal=true @close="close_dialog" :visible.sync="dialogFormVisible">
-      <el-form label-width="80px" :model="form">
+      <el-form label-width="80px" :rules="rules" ref="form" :model="form">
         <el-form-item label="序号">
 
           <el-input v-if="index!== '' " v-model="index" :disabled="false" readonly="readonly" />
         </el-form-item>
-        <el-form-item label="姓名">
+        <el-form-item  prop="name" label="姓名">
           <el-input v-model="form.name" placeholder="请输入姓名" />
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item prop="username" label="用户名">
           <el-input v-model="form.username" placeholder="请输入用户名" />
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item prop="password" label="密码">
           <el-input v-model="form.password" placeholder="请输入用密码" />
         </el-form-item>
-        <el-form-item label="手机号">
+        <el-form-item prop="phone" label="手机号">
           <el-input v-model="form.phone" placeholder="请输入用手机号" />
         </el-form-item>
-        <el-form-item label="工号">
+        <el-form-item prop="no" label="工号">
           <el-input v-model="form.no" placeholder="请输入用工号" />
         </el-form-item>
-        <el-form-item  label="角色">
+        <el-form-item prop="role" label="角色">
           <el-input disabled v-model="form.role" placeholder="请输入工号" />
         </el-form-item>
         <el-form-item label="绑定班级">
@@ -128,6 +128,15 @@ export default {
     })
   },
   data(){
+    const validatePhone = (rule,value,callback) =>{
+      if (value === "") {
+        callback(new Error("请输入绑定的手机号码"))
+      } else if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
+        callback(new Error("请输入正确的手机号码"))
+      } else {
+        callback()
+      }
+    }
     return{
       is_add:false,
       listLoading:true,
@@ -151,6 +160,26 @@ export default {
         'no':'',
         'role':'1',
         'class':'',
+      },
+      rules: {
+        name:[
+          { required: true, message: '请输入姓名', trigger: 'blur' }
+        ],
+        username:[
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password:[
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        no:[
+          { required: true, message: '请输入工号', trigger: 'blur' }
+
+        ],
+        phone:[
+          { required: true, trigger: 'blur',validator:validatePhone},
+        ]
+
+
       },
       submit_form:{
         'user':{},

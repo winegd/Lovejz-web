@@ -15,6 +15,5 @@ export function isExternal (path) {
  * @returns {Boolean}
  */
 export function validUsername (str) {
-  if (str == '') return false
-  else return true
+  return str !== '';
 }

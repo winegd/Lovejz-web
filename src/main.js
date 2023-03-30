@@ -14,7 +14,10 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
+import tinymce from 'tinymce'
+import VueTinymce from '@packy-tang/vue-tinymce'
+Vue.prototype.$tinymce = tinymce // 将全局tinymce对象指向给Vue作用域下
+Vue.use(VueTinymce)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

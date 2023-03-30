@@ -26,8 +26,14 @@
         </span>
       </el-form-item>
 
+      <div  style="color:red;fill: red;">
+        <svg-icon style="fill:red;" icon-class="success" />
+      </div>
+
+
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
-        @click.native.prevent="handleLogin">Login</el-button>
+        @click.native.prevent="handleLogin">Login
+      </el-button>
 
     </el-form>
   </div>
@@ -35,32 +41,24 @@
 
 <script>
   import { validUsername } from '@/utils/validate'
+  import { get_captcha, verify_captcha } from '@/api/captcha'
 
   export default {
     name: 'Login',
+    created() {
+
+    },
     data () {
-      const validateUsername = (rule, value, callback) => {
-        if (!validUsername(value)) {
-          callback(new Error('请输入合法的用户名'))
-        } else {
-          callback()
-        }
-      }
-      const validatePassword = (rule, value, callback) => {
-        if (value.length < 6) {
-          callback(new Error('密码不应少于6位'))
-        } else {
-          callback()
-        }
-      }
+
       return {
         loginForm: {
           username: '123',
           password: ''
         },
         loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          username: [{ required: true,message:'请输入用户名' ,trigger: 'blur'}],
+          password: [{ required: true,message:'请输入密码' ,trigger: 'blur' }],
+
         },
         loading: false,
         passwordType: 'password',
@@ -76,6 +74,7 @@
       }
     },
     methods: {
+
       showPwd () {
         if (this.passwordType === 'password') {
           this.passwordType = ''
@@ -88,18 +87,21 @@
       },
       handleLogin () {
         this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            this.$store.dispatch('user/login', this.loginForm).then(() => {
-              this.$router.push({ path: this.redirect || '/' })
-              this.loading = false
-            }).catch(() => {
-              this.loading = false
-            })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
+                if (valid) {
+              this.loading = true
+              this.$store.dispatch('user/login', this.loginForm).then(() => {
+                this.$router.push({ path: this.redirect || '/' })
+                this.loading = false
+
+              }).catch(() => {
+                this.loading = false
+              })
+            } else {
+              console.log('验证未通过！')
+              return false
+            }
+
+
         })
       }
     }
@@ -119,7 +121,6 @@
       color: $cursor;
     }
   }
-
   /* reset element-ui css */
   .login-container {
     .el-input {

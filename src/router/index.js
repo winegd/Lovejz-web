@@ -38,24 +38,43 @@ export const asyncRoutes = [
     component: Layout,
     // redirect: '/class',
     children: [{
-      path: 'index',
+      path: 'class',
       name: 'class',
       component: () => import('@/views/class/index'),
       meta: { title: '班级管理', icon: 'component', roles: ['2'] }
     }]
 
   },
+  {
+    path: '/chapter',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: 'chapter',
+      component: () => import('@/views/chapter/index'),
+      meta: { title: '章节管理', icon: 'component', roles: ['1'] }
+    }]
 
+  },
   {
     path: '/que',
     component: Layout,
-    // redirect: '/class',
+    meta: {roles: ['1']},
     children: [{
       path: 'questions',
       name: 'questions',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '题目管理', icon: 'tab', roles: ['1'] }
-    }]
+      component: () => import('@/views/question/index'),
+      meta: { title: '题目管理', icon: 'tab' }
+    },
+    {
+      path: 'addquestion',
+      name:'addquestion',
+      component: () => import('@/views/addquestion'),
+      hidden: true
+    },
+
+
+    ]
 
   },
   {
