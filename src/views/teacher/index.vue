@@ -93,7 +93,7 @@
 
 
           <el-checkbox-group v-model="checkedClsses" @change="handleCheckedClassesChange">
-            <el-checkbox  v-for="(item,index) in classList"  :label="JSON.stringify(item)" >{{item.name}}</el-checkbox>
+            <el-checkbox  v-for="(item,index) in classList" :key="index" :label="JSON.stringify(item)" >{{item.name}}</el-checkbox>
 
           </el-checkbox-group>
         </el-form-item>
